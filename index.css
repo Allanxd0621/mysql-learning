@@ -1,0 +1,36 @@
+body{
+    background: linear-gradient(to top, blue , white);
+}
+
+.body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    width: 100%;
+}
+
+form{
+    background-color: aliceblue;
+    padding: 20px;
+    border-radius: 12px;
+
+}
+input{
+    padding: 5px;
+    border: none;
+    font-weight: 600;
+    border-radius: 12px;
+    border-bottom: 2px solid black;
+    margin-top: 12px;
+}
+
+button{
+    display: flex;
+    margin-top: 2rem;
+    border-radius: 12px;
+    padding: 5px;
+    font-weight: 600;
+    
+}

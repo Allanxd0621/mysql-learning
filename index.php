@@ -1,76 +1,59 @@
 <?php 
-session_start();
-
-
-$cann = mysqli_connect("localhost" , "root" , "" , "practice_DB");
-// to connect the db in mysql we type the host name folder and the sql name 
+$cann = mysqli_connect('localhost' , 'root' , '' ,'loginpracticedb');
+$error = '';
+$no = false;
 
 if(!$cann){
-    die("Connection failed"); // if we cant connect to the database this shit will appear
+    die("Connection Failed");
 }
-
-
-
-
-
-
-$empty = '';
-
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-    if(empty($_POST['username']) || empty($_POST['password'])){
-        $empty = 'Error empty on either password or username';
-    }else{
+if(empty($_POST['username']) || empty($_POST['password'])){
 
-        $username = $_POST['username'];
-        $password = $_POST['password']; 
+    $error = 'Username or Password cannot be empty.'; 
+    $no = true;
 
-        
-//store the inputs inside these variables 
+}if(!$no){
 
-    $sql = "INSERT INTO users (username, password) 
-        VALUES ('$username' , '$password')"; 
-    //this code inserts the values (which are in the variables) to the table named users and the elements username and password ill call it element chat
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    mysqli_query($cann, $sql); //what ever this 
+    $sql = "INSERT INTO users (username , password) VALUES ('$username' , '$password')";
 
-        $_SESSION['username'] = $_POST['username'];
-        $_SESSION['password'] = $_POST['password'];
+    mysqli_query($cann , $sql);
 
-
-        header('location: login.php');
-        exit();
-
+    header("Location: login.php");
+    exit();
     }
 
 }
 
 
-
 ?>
 
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , user-scalable = no">
+    <title>Create Account</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-<!-- first i wanna learn how to put datas inside the table using sessions -->
+    
+<div class="body">
 
-<form method="POST">
-    <input type="text" placeholder="username" name="username">
-    <br>
-    <input type="password" placeholder="password" name="password">
-    <br>
-    <button type="submit">Submit</button>
-    <p><?php echo $empty; ?></p>
-</form>
+    <form  method="post">
+        <h1>Create Account</h1> <br>
+        <input type="text" name="username" placeholder="Enter Username" id="username" maxlength="50">
+        <br>
+        <input type="password" name="password" placeholder="Choose Password" id="password" maxlength="20">
+        <br>
+        <p><?php echo $error; ?></p>
+        <button type="submit">Create Account</button>
+    </form>
 
-<!--say we have this form simple just ask for pass and username -->
-
-
+    </div>
 </body>
 </html>
